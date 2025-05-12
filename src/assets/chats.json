@@ -1,0 +1,50 @@
+[
+    {
+        "participant": 0,
+        "name": "Dan",
+        "message": "joined the room",
+        "type": "system"
+    },
+    {
+        "participant": 1,
+        "name": "Steve",
+        "message": "joined the room",
+        "type": "system"
+    },
+    {
+        "participant": 0,
+        "name": "Dan",
+        "message": "Hi Steve, how are you?",
+        "type": "text"
+    },
+    {
+        "participant": 1,
+        "name": "Steve",
+        "message": "I'm good, thanks! How about you?",
+        "type": "text"
+    },
+    {
+        "participant": 0,
+        "name": "Dan",
+        "message": "I'm doing well, just busy with work.",
+        "type": "text"
+    },
+    {
+        "participant": 1,
+        "name": "Steve",
+        "message": "Same here. What are you working on?",
+        "type": "text"
+    },
+    {
+        "participant": 0,
+        "name": "Dan",
+        "message": "I'm working on a new project at work.",
+        "type": "text"
+    },
+    {
+        "participant": 1,
+        "name": "Steve",
+        "message": "That sounds interesting! What's it about?",
+        "type": "text"
+    }
+]
