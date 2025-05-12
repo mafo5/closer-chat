@@ -7,6 +7,7 @@ import { TextMessage } from './TextMessage'
 
 function App() {
   const [visibleChats, setVisibleChats] = useState(0)
+  const [keysPressed, setKeysPressed] = useState(0)
 
   useEffect(() => {
     const onEnterPressed = (event: KeyboardEvent) => {
@@ -17,11 +18,24 @@ function App() {
           }
           return prev + 1
         })
+        setKeysPressed(0);
       }
     }
+
+    const onKeyPressed = (event: KeyboardEvent) => {
+      if (event.key !== 'Enter') {
+        setKeysPressed((prev) => {
+          return prev + 1
+        })
+      }
+    };
+
+
     document.addEventListener('keydown', onEnterPressed);
+    document.addEventListener('keydown', onKeyPressed);
     return () => {
       document.removeEventListener('keydown', onEnterPressed);
+      document.removeEventListener('keydown', onKeyPressed);
     }
   }, []);
 
@@ -37,9 +51,16 @@ function App() {
           }
           switch (chat.type) {
             case 'system':
-              return <SystemMessage key={index} chat={chat as Chat} />
+              return <SystemMessage
+                key={index}
+                chat={chat as Chat}
+              />
             case 'text':
-              return <TextMessage key={index} chat={chat as Chat} />
+              return <TextMessage
+                key={index}
+                chat={chat as Chat}
+                keysPressed={visibleChats - 1 === index ? keysPressed : -1}
+              />
             default:
               return null
           }
