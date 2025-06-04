@@ -58,7 +58,7 @@ function App() {
           return
         }
         const currentChat = chats[visibleChats - 1];
-        const requiredKeyStrokes = currentChat.type === 'system' ? 0 : currentChat.message.length;
+        const requiredKeyStrokes = currentChat.type.toLowerCase() === 'system' ? 0 : currentChat.message.length;
         const difference = currentTime - lastMessageChange;
 
         console.log('state', { currentType: currentChat.type, currentMessage: currentChat.message, difference, keysPressed, requiredKeyStrokes, visibleChats });
@@ -91,12 +91,14 @@ function App() {
       {
         chats.map((chat, index) => {
           if (visibleChats === 0) {
+            console.log(`visibleChats is 0 from ${chats.length}, skipping rendering`);
             return null
           }
           if (index >= visibleChats) {
+            console.log(`index ${index} is greater than visibleChats ${visibleChats}, skipping rendering`);
             return null
           }
-          switch (chat.type) {
+          switch (chat.type.toLowerCase()) {
             case 'system':
               return <SystemMessage
                 className={chat.participant ? 'items-end' : 'items-start'}
