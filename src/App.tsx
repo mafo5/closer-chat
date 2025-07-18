@@ -95,8 +95,8 @@ function App() {
   }, [autoTyping, typingSpeed, keysPressed, visibleChats]);
 
   return (
-    <div className="root_container" style={{ maxWidth: width ?? '1280px'}}>
-      <div className="grid" style={{ fontSize: fontSize || '2rem' }}>
+    <div className="w-full absolute bottom-0 overflow-y-auto">
+      <div className="grid px-4 pb-20 mx-auto my-0" style={{ fontSize: fontSize || '2rem', maxWidth: width ?? '1280px' }}>
         {
           chats.map((chat, index) => {
             if (visibleChats === 0) {

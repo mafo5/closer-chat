@@ -1,8 +1,6 @@
-.root_container {
-  margin: 0 auto;
-  padding: 2rem;
-  padding-bottom: 5rem;
-  text-align: center;
+#root {
+  margin: 0;
+  height: 100vh;
 }
 
 .logo {
