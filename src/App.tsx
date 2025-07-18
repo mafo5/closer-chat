@@ -11,7 +11,15 @@ function App() {
 
   const typingSpeed = 100; // 1 second
   const messageDelay = 1000; // 1 second
-  const autoTyping = window.location.search.includes('typing=auto');
+  console.debug('search', window.location.search);
+  const { typing, fontSize, width } = window.location.search.replace('?','')
+    .split('&')
+    .reduce((searchParams, param): Record<string, string> => {
+      const [key, value] = param.split('=');
+      return { ...searchParams, [key]: decodeURIComponent(value?.trim()) };
+    }, {} as Record<string, string>);
+  const autoTyping = typing === 'auto';
+  console.debug('Params', { typing, fontSize, width })
 
   useEffect(() => {
     const removals: (() => void)[] = [];
@@ -87,36 +95,38 @@ function App() {
   }, [autoTyping, typingSpeed, keysPressed, visibleChats]);
 
   return (
-    <div className="grid">
-      {
-        chats.map((chat, index) => {
-          if (visibleChats === 0) {
-            console.log(`visibleChats is 0 from ${chats.length}, skipping rendering`);
-            return null
-          }
-          if (index >= visibleChats) {
-            console.log(`index ${index} is greater than visibleChats ${visibleChats}, skipping rendering`);
-            return null
-          }
-          switch (chat.type.toLowerCase()) {
-            case 'system':
-              return <SystemMessage
-                className={chat.participant ? 'items-end' : 'items-start'}
-                key={index}
-                chat={chat as Chat}
-              />
-            case 'text':
-              return <TextMessage
-                className={chat.participant ? 'items-end' : 'items-start'}
-                key={index}
-                chat={chat as Chat}
-                keysPressed={visibleChats - 1 === index ? keysPressed : -1}
-              />
-            default:
+    <div className="root_container" style={{ maxWidth: width ?? '1280px'}}>
+      <div className="grid" style={{ fontSize: fontSize || '2rem' }}>
+        {
+          chats.map((chat, index) => {
+            if (visibleChats === 0) {
+              console.log(`visibleChats is 0 from ${chats.length}, skipping rendering`);
               return null
-          }
-        })
-      }
+            }
+            if (index >= visibleChats) {
+              console.log(`index ${index} is greater than visibleChats ${visibleChats}, skipping rendering`);
+              return null
+            }
+            switch (chat.type.toLowerCase()) {
+              case 'system':
+                return <SystemMessage
+                  className={chat.participant ? 'items-end' : 'items-start'}
+                  key={index}
+                  chat={chat as Chat}
+                />
+              case 'text':
+                return <TextMessage
+                  className={chat.participant ? 'items-end' : 'items-start'}
+                  key={index}
+                  chat={chat as Chat}
+                  keysPressed={visibleChats - 1 === index ? keysPressed : -1}
+                />
+              default:
+                return null
+            }
+          })
+        }
+      </div>
     </div>
   )
 }
