@@ -16,7 +16,13 @@ function App() {
     .split('&')
     .reduce((searchParams, param): Record<string, string> => {
       const [key, value] = param.split('=');
-      return { ...searchParams, [key]: decodeURIComponent(value?.trim()) };
+      let sanitizedValue = value?.trim();
+      try {
+        sanitizedValue = decodeURIComponent(sanitizedValue);
+      } catch (e) {
+        console.debug('param contains invalid URI component - use raw value', { key, value, error: e });
+      }
+      return { ...searchParams, [key]: sanitizedValue };
     }, {} as Record<string, string>);
   const autoTyping = typing === 'auto';
   console.debug('Params', { typing, fontSize, width })
