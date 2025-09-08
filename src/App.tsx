@@ -116,13 +116,13 @@ function App() {
             switch (chat.type.toLowerCase()) {
               case 'system':
                 return <SystemMessage
-                  className={chat.participant ? 'items-end' : 'items-start'}
+                  className={chat.participant ? 'items-start' : 'items-end'}
                   key={index}
                   chat={chat as Chat}
                 />
               case 'text':
                 return <TextMessage
-                  className={chat.participant ? 'items-end' : 'items-start'}
+                  className={chat.participant ? 'items-start' : 'items-end'}
                   key={index}
                   chat={chat as Chat}
                   keysPressed={visibleChats - 1 === index ? keysPressed : -1}

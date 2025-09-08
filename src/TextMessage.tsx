@@ -10,7 +10,7 @@ export const TextMessage: FunctionComponent<{ chat: Chat, keysPressed: number } 
                 {chat.name}
             </div>
             <div>
-                <p style={{ whiteSpace: 'pre-wrap' }}>{chat.message.split('').filter((character, index) => keysPressed < 0 ? true : (index < keysPressed || (['\n'].includes(character) && index < keysPressed + 1))).join('')}</p>
+                <p className={className?.includes("items-end") ? "text-right" : ""} style={{ whiteSpace: 'pre-wrap' }}>{chat.message.split('').filter((character, index) => keysPressed < 0 ? true : (index < keysPressed || (['\n'].includes(character) && index < keysPressed + 1))).join('')}</p>
             </div>
         </div>
     )
